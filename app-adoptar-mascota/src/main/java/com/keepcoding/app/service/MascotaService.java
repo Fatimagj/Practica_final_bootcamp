@@ -9,10 +9,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-
 import com.keepcoding.app.entity.Mascota;
 import com.keepcoding.app.repository.MascotaRepository;
-
 
 
 @Service
@@ -21,61 +19,41 @@ public class MascotaService {
 	@Autowired
 	private MascotaRepository mascotaRepository;
 
-	//Toda la lista de mascotas
+	//Listado de todas las mascotas
 	public List<Mascota> getAllMascotas() {
 		return mascotaRepository.findAll();
 	}
 	
-	public Page<Mascota> getMascotaPaginada(int page, int size) {
-		Pageable pageable = PageRequest.of(page, size);
-		return mascotaRepository.findAll(pageable);
-	
-	}
-	
-	//buscar por id
-	public Mascota getMascotaById(Long id) {
-		return mascotaRepository.findById(id).orElse(null);
-	}
-	
-	//buscar por nombre
-	public List<Mascota> getMascotaByName(String name) {
-        return mascotaRepository.findByNameIgnoreCase(name);
-    }
-	
-	//buscar los más jóvenes
+	//Listado 20 mascotas más jóvenes
     public List<Mascota> getYoungestMascota(int count) {
         Pageable pageable = PageRequest.of(0, count, Sort.by(Sort.Direction.ASC, "fechaNac"));
         return mascotaRepository.findAll(pageable).getContent();
     }
     
+    //Obtener mascotas de forma paginada a 5
+	public Page<Mascota> getMascotaPaginada(int page, int size) {
+		Pageable pageable = PageRequest.of(page, size);
+		return mascotaRepository.findAll(pageable);
+	}
 	
-	//Guardar
+	//Buscar por id
+	public Mascota getMascotaById(Long id) {
+		return mascotaRepository.findById(id).orElse(null);
+	}
+	
+	//Buscar por nombre
+	public List<Mascota> getMascotaByName(String name) {
+        return mascotaRepository.findByNameIgnoreCase(name);
+    }
+	
+	//Registrar nueva mascota
 	public Mascota saveMascota(Mascota mascota) {
 		return mascotaRepository.save(mascota);
 	}
 
-	//Borrar
+	//Eliminar mascota
 	public void deleteMascota(Long id) {
 		mascotaRepository.deleteById(id);
-		
 	}
-
-	
-
-	
-
-	
-	//**para modificar una mascota ya guardada
-	//public Mascota updateMascota(Mascota mascota) {
-		//return mascotaRepository.save(mascota);
-	//}
-
-
-	//public Mascota obtenerMascota(Long id) {
-		//return mascotaRepository.findById(id).get();
-	//}
-	
-	
-	
 
 }

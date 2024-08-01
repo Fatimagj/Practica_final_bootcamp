@@ -32,8 +32,6 @@ public class Mascota {
 	private boolean tiene_chip;
 	private  String url_foto;
 	
-	
-	
 }
 
 

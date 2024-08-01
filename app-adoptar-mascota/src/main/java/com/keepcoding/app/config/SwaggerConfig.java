@@ -32,8 +32,8 @@ public class SwaggerConfig {
 		return new ApiInfoBuilder()
 			.title("Documentación de la Fundación para facilitar la adopción de mascotas")
 			.description("Información completa sobre la API REST para consumo de clientes")
-			.termsOfServiceUrl("www.")
-			.contact(new Contact("Fátima García Jorge", "pagina web", "fatima.jorge.g@gmail.com"))
+			.termsOfServiceUrl("www.linkedin.com/in/fátima-garcía-jorge-b1a999ba")
+			.contact(new Contact("Fátima García Jorge", "www.linkedin.com/in/fátima-garcía-jorge-b1a999ba", "fatima.jorge.g@gmail.com"))
 			.version("1.0")
 			.build();
 	}

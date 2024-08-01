@@ -1,57 +1,55 @@
 <!DOCTYPE html>
 <html lang="es"
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org/">
+	  xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org/">
 <head>
 	<meta charset="UTF-8">
 	<title>Adopta una mascota</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"/>
-	<link rel="stylesheet" th:href="@{/css/paginacion.css}">
+	<meta name="viewport" 
+		  content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" 
+		  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
+		  integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" 
+		  crossorigin="anonymous"/>
 <style>
-        /* Estilos generales */
+    
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #a2d9ce; /* Gris claro pastel #a2d9ce*/
-            color: #333; /* Texto gris oscuro */
+            background-color: #a2d9ce; 
+            color: #333; 
         }
-       
-        
-        /* Contenedor centrado */
+
         .container {
             width: 80%;
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #ffffff; /* Blanco */
+            background-color: #ffffff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
             text-align: center;
         }
 
-        /* Encabezado */
         header {
-            background-color: #d3a7c6; /* Rosa pastel */
+            background-color: #d3a7c6; 
             padding: 20px;
             border-radius: 10px 10px 0 0;
             color: #fff;
         }
         
-        /* Sección principal */
         .main-content {
             padding: 20px;
         }
 
-        /* Estilos de botones */
         .button {
             display: inline-block;
             padding: 10px 20px;
             margin: 10px;
             font-size: 16px;
             color: #fff;
-            background-color: #a2d9ce; /* Verde menta pastel */
+            background-color: #a2d9ce; 
             border: none;
             border-radius: 5px;
             text-decoration: none;
@@ -59,12 +57,11 @@
         }
         
         .button:hover {
-            background-color: #8ac1b2; /* Verde menta pastel más oscuro */
+            background-color: #8ac1b2; 
         }
 
-        /* Pie de página */
         footer {
-            background-color: #d3a7c6; /* Rosa pastel */
+            background-color: #d3a7c6;
             padding: 10px;
             border-radius: 0 0 10px 10px;
             color: #fff;
@@ -73,41 +70,75 @@
             width: 100%;
             text-align: center;
         }
-               .custom-search-form {
-  			margin-right: 10px; /* Ajusta el espacio entre los formularios si es necesario */
+        
+        .custom-search-form {
+  			margin-right: 10px; 
 		}
 
-	   .custom-input, .custom-button {
-  			padding: 4px 8px; /* Reduce el padding para que los elementos sean más finos */
-  			height: 30px; /* Ajusta la altura según tus necesidades */
-  			font-size: 14px; /* Ajusta el tamaño de la fuente si es necesario */
+	    .custom-input, .custom-button {
+  			padding: 4px 8px; 
+  			height: 30px; 
+  			font-size: 14px; 
 		}
 
-	   .custom-input {
-  			border-width: 1px; /* Ajusta el grosor del borde si es necesario */
+	    .custom-input {
+  			border-width: 1px; 
 		}
 
-	   .custom-button {
-  			border-width: 1px; /* Ajusta el grosor del borde si es necesario */
-  			line-height: 1; /* Ajusta el line-height para que el texto esté centrado */
-  			min-width: 100px; /* Ajusta el ancho mínimo del botón para acomodar nombres más largos */
+	    .custom-button {
+  			border-width: 1px; 
+  			line-height: 1; 
+  			min-width: 100px; 
 		}
+		
 		@media (min-width: 576px) {
   		.custom-button {
-    		min-width: 120px; /* Ajusta el ancho mínimo del botón para pantallas más grandes */
+    		min-width: 120px;
+  			}
+		}
+		@media (min-width: 768px) {
+  		.custom-button {
+    		min-width: 140px;
   			}
 		}
 
-		@media (min-width: 768px) {
-  		.custom-button {
-    		min-width: 140px; /* Ajusta el ancho mínimo del botón para pantallas aún más grandes */
-  			}
-		}
+  		.pagination-container {
+    		display: flex;
+    		justify-content: center;
+    		align-items: center;
+    		gap: 10px; 
+    		padding: 10px;
+  		}
+
+  		.pagination-container a {
+    		text-decoration: none;
+    		color: #007bff; 
+    		font-weight: bold;
+   		 	padding: 8px 16px;
+    		border: 1px solid #007bff; 
+    		border-radius: 4px;
+    		transition: background-color 0.3s, color 0.3s;
+  		}
+
+  		.pagination-container a:hover {
+    		background-color: #007bff; 
+    		color: white; 
+  		}
+  
+  		.pagination-container span {
+    		padding: 8px 16px;
+    		border: 1px solid #ddd; 
+    		border-radius: 4px;
+    		background-color: #f8f9fa; 
+    		color: #007bff; 
+    		font-weight: bold;
+  		}
     </style>
+    
 </head>
 <br>
 <br>
-<br>
+
 <body>
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -115,18 +146,26 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/">Inicio</a>
+          <a class="nav-link active" 
+          	 style="color:#d2691e; font-weight:bold" 
+          	 aria-current="page" 
+          	 href="/">Inicio</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/lista_mascotas/pagina">Listado de mascotas</a>
+          <a class="nav-link" 
+             style="color:#d2691e" 
+             href="/lista_mascotas/pagina">Listado de mascotas</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/registrar_mascota">Registro</a>
+          <a class="nav-link" 
+             style="color:#d2691e"  
+             href="/registrar_mascota">Registro</a>
         </li>
    		<li class="nav-item">
-          <a class="nav-link" href="/mascotas_jovenes">Mascotas más jóvenes</a>
+          <a class="nav-link" 
+             style="color:#d2691e" 
+             href="/mascotas_jovenes">Mascotas más jóvenes</a>
         </li>
-       
       </ul>
     </div>
   </div>
@@ -149,7 +188,6 @@
 	      <th scope="col">Peso</th>
 	      <th scope="col">Chip</th>
 	      <th scope="col">Foto</th>
-	      
 	    </tr>
   	  </thead>
   	  <tbody>
@@ -159,14 +197,11 @@
 	      <td class="table-warning" th:text="${#dates.format(mas.fechaNac, 'dd/MM/yyyy')}"></td>
 	      <td class="table-info" th:text="${mas.raza}"></td>
 	      <td class="table-light" th:text="${mas.peso}"></td>
-<!-- 	      <td class="table-danger" th:text="${mas.tiene_chip}"></td> -->
 	      <td class="table-danger" th:text="${mas.tiene_chip ? 'Sí' : 'No'}"></td>
-<!-- 	      <td class="table-primary" th:text="${mas.url_foto}"></td> -->
 	      <td class="table-primary">
-    <img th:src="@{${mas.url_foto}}" alt="Foto de la mascota" style="max-width: 100px; height: auto;">
-</td>
+    		  <img th:src="@{${mas.url_foto}}" alt="Foto de la mascota" style="max-width: 100px; height: auto;">
+	      </td>
 	      <td>
-	      	<a class="btn btn-info" th:href=@{/editar/{id}(id=${mas.id})}>Editar</a>
 	      	<form th:action="@{/delete/{id}(id=${mas.id})}" method="post" style="display:inline;" onsubmit="return confirm('¿Estás seguro?');">
     			<button type="submit" class="btn btn-danger">Borrar</button>
 			</form>
@@ -175,15 +210,15 @@
    	  </tbody>
 </table>
 
-</div>
-
 <!-- Controles de paginación -->
-    <div>
-        <a th:if="${!mascotas.isFirst()}" th:href="@{/lista_mascotas/pagina(page=${currentPage - 1})}">Anterior</a>
-        <span th:text="${currentPage + 1}">1</span>
-        <a th:if="${!mascotas.isLast()}" th:href="@{/lista_mascotas/pagina(page=${currentPage + 1})}">Siguiente</a>
+    <div class="pagination-container">
+        <a th:if="${!mascotas.isFirst()}" 
+           th:href="@{/lista_mascotas/pagina(page=${currentPage - 1})}">Anterior</a>
+           <span th:text="${currentPage + 1}">1</span>
+        <a th:if="${!mascotas.isLast()}" 
+           th:href="@{/lista_mascotas/pagina(page=${currentPage + 1})}">Siguiente</a>
     </div>
-
+</div>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>

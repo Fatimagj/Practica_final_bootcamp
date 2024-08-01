@@ -6,12 +6,10 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.keepcoding.app.entity.Mascota;
 import com.keepcoding.app.service.MascotaService;
-
 
 
 @RestController
@@ -39,14 +36,21 @@ public class MascotaControllerApi {
        return mascotas;
     }
     
-    // para obtener perros de forma paginada a 5
+    //Listado 20 perros más jóvenes
+	 @GetMapping("/jovenes") 
+	 public ResponseEntity<List<Mascota>> getYoungestMascota() {
+	    List<Mascota> youngestMascota = mascotaService.getYoungestMascota(20);
+	    return ResponseEntity.ok(youngestMascota);
+	    }
+	 
+    //Obtener perros de forma paginada a 5
  	@GetMapping("/pagina")
  	public ResponseEntity<Page<Mascota>> getMascotaPaginada(@RequestParam(defaultValue = "0") int page) {
  		Page<Mascota> mascota = mascotaService.getMascotaPaginada(page, 5);
  		return ResponseEntity.ok(mascota);
  	} 
  	
-	//obtener id para su busqueda 
+	//Busccar por Id
 	@GetMapping("/id/{id}")
 	public ResponseEntity<Mascota> getMascotaById(@PathVariable Long id) {
 		Mascota mascota = mascotaService.getMascotaById(id);
@@ -55,24 +59,15 @@ public class MascotaControllerApi {
 		}else {
             return ResponseEntity.notFound().build(); }
 
-		}
+	}
 
-	// Obtener nombre para la búsqueda
+	//Busqueda por nombre
 	 @GetMapping("/nombre/{name}")
 	 public List<Mascota> getMascotaByNombre(@PathVariable String name) {
 	     return mascotaService.getMascotaByName(name);
-	    }
-	  
-
-	 //Para obtener los 20 perros más jóvenes
-	 @GetMapping("/jovenes") 
-	 public ResponseEntity<List<Mascota>> getYoungestMascota() {
-	    List<Mascota> youngestMascota = mascotaService.getYoungestMascota(20);
-	    return ResponseEntity.ok(youngestMascota);
-	    }
+	}
 	
-	
-	//registrar nueva mascota
+	//Registrar nueva mascota
 	@PostMapping("/registrar_mascota")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Mascota saveMascota(@RequestBody @Valid Mascota mascota) {
@@ -80,21 +75,13 @@ public class MascotaControllerApi {
 	    return guardarMascota;
 	     
 	}
-	/*
-	 @PostMapping("/registrar_mascota")
-		public ResponseEntity<Mascota> createPerro(@RequestBody Mascota mascota) {
-			Mascota savedMascota = mascotaService.saveMascota(mascota);
-			return ResponseEntity.status(HttpStatus.CREATED).body(savedMascota);
-		}*/
 
-	 // Eliminar mascota
+	// Eliminar mascota
     @DeleteMapping("/borrar/{id}")
     public void eliminarMascota(@PathVariable Long id) {
     	mascotaService.deleteMascota(id);
          
     }
-    
- 
     
 }
 

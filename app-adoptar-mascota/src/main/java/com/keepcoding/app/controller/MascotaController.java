@@ -19,9 +19,7 @@ import com.keepcoding.app.entity.Mascota;
 import com.keepcoding.app.service.MascotaService;
 
 
-
 @Controller
-//@RequestMapping("/api/mascotas")
 public class MascotaController {
 	
 	@Autowired
@@ -34,8 +32,16 @@ public class MascotaController {
         model.addAttribute("mascotas", mascotas);
         return "lista_mascotas";
     }
+    
+    //Listado 20 mascotas más jóvenes
+  	 @GetMapping("/mascotas_jovenes") 
+  	 public String verYoungestMascotas(Model model) {
+  		 List<Mascota> mascotas = mascotaService.getYoungestMascota(20);
+  		 model.addAttribute("mascotas", mascotas);
+  		 return "mascotas_jovenes";
+  	}
 
- // para obtener perros de forma paginada a 5
+    //Obtener mascotas de forma paginada a 5
   	@GetMapping("/lista_mascotas/pagina")
   	public String getAllMascotaPaginada(@RequestParam(defaultValue = "0") int page, Model model) {
   		Page<Mascota> mascotaPage = mascotaService.getMascotaPaginada(page, 5);
@@ -44,7 +50,7 @@ public class MascotaController {
   		return "lista_mascotas";
   	} 
     
-    // busqeuda por id
+    //Buscar por Id
     @GetMapping("/buscar")
     public String buscarPorId(@RequestParam(name = "id", required = false) Long id, Model model) {
         if (id != null) {
@@ -55,9 +61,10 @@ public class MascotaController {
                 model.addAttribute("error", "Mascota no encontrada.");
             }
         }
-        return "busqueda_id"; // nombre de la vista Thymeleaf
+        return "busqueda_id"; 
     }
-    //busqueda por nombre
+    
+    //Busqueda por nombre
     @GetMapping("/buscar/nombre")
     public String getMascotaByName(@RequestParam String name, Model model) {
         List<Mascota> mascotas = mascotaService.getMascotaByName(name);
@@ -69,18 +76,7 @@ public class MascotaController {
         return "busqueda_name";
     }
     
-	 
-	 // 20 mascotas más jóvenes
-	 @GetMapping("/mascotas_jovenes") 
-	 public String verYoungestMascotas(Model model) {
-		 List<Mascota> mascotas = mascotaService.getYoungestMascota(20);
-		 model.addAttribute("mascotas", mascotas);
-		 return "mascotas_jovenes";
-	    }
-	
-	
-	//registrar nueva mascota
-
+	//Registrar nueva mascota
 	@GetMapping ("/registrar_mascota")
 	public String newMascotaForm(Model modelo) {
 		Mascota mascota = new Mascota();
@@ -97,42 +93,13 @@ public class MascotaController {
 	    return "redirect:/lista_mascotas";
 	}
 
-	 // Eliminar mascota
+	//Eliminar mascota
     @PostMapping("/delete/{id}")
     public String eliminarMascota(@PathVariable Long id) {
         mascotaService.deleteMascota(id);
         return "redirect:/lista_mascotas";
     }
     
- 
-    
- 
-   
-    
-    //MIRAR ESTO QUE ME ESTA DANDO ERROR PARA EDITARLA
-    //Para editar una mascota ya guardada
-    /*
-	@GetMapping("/mascota/editar/{id}")
-	public String updateMascotaForm(@PathVariable Long id, Model modelo) {
-		modelo.addAttribute("mascota_update", mascotaService.saveMascota(id));
-		return "editar_mascota";
-	}
-	
-	@PostMapping("/mascota/{id}")
-	public String updateMascota(@PathVariable Long id, @ModelAttribute("mascota_update") Mascota mascota) {
-		Mascota mascotaExistente = mascotaService.saveMascota(id);
-		mascotaExistente.setId(id);
-		mascotaExistente.setName(mascota.getName());
-		mascotaExistente.setFechaNac(mascota.getFechaNac());
-		mascotaExistente.setRaza(mascota.getRaza());
-		mascotaExistente.setPeso(mascota.getPeso());
-		mascotaExistente.setTiene_chip(mascota.isTiene_chip());
-		mascotaExistente.setUrl_foto(mascota.getUrl_foto());
-	
-		mascotaService.updateMascota(mascotaExistente);
-		return "redirect:/lista_mascotas";
-	} 
-	*/
 }
 
 
