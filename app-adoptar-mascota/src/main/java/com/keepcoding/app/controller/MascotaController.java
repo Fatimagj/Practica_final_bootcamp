@@ -6,8 +6,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -36,12 +34,16 @@ public class MascotaController {
         model.addAttribute("mascotas", mascotas);
         return "lista_mascotas";
     }
- // para obtener perros de forma paginada
-  	@GetMapping("/page")
-  	public Iterable<Mascota> getMascotaPaged(@RequestParam int page) {
-  		Pageable pageable = PageRequest.of(page, 5);
-  		return mascotaService.getAllMascotaPaged(pageable);
+
+ // para obtener perros de forma paginada a 5
+  	@GetMapping("/lista_mascotas/pagina")
+  	public String getAllMascotaPaginada(@RequestParam(defaultValue = "0") int page, Model model) {
+  		Page<Mascota> mascotaPage = mascotaService.getMascotaPaginada(page, 5);
+  		model.addAttribute("mascotas", mascotaPage);
+  		model.addAttribute("currentPage", page);
+  		return "lista_mascotas";
   	} 
+    
     // busqeuda por id
     @GetMapping("/buscar")
     public String buscarPorId(@RequestParam(name = "id", required = false) Long id, Model model) {

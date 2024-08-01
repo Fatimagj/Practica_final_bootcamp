@@ -26,7 +26,8 @@ public class MascotaService {
 		return mascotaRepository.findAll();
 	}
 	
-	public Iterable<Mascota> getAllMascotaPaged(Pageable pageable) {
+	public Page<Mascota> getMascotaPaginada(int page, int size) {
+		Pageable pageable = PageRequest.of(page, size);
 		return mascotaRepository.findAll(pageable);
 	
 	}

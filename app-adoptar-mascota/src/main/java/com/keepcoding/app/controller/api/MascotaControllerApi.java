@@ -7,16 +7,14 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -41,11 +39,11 @@ public class MascotaControllerApi {
        return mascotas;
     }
     
-    // para obtener perros de forma paginada
- 	@GetMapping("/pagina/{pagina}")
- 	public Iterable<Mascota> getMascotaPaged(@PathVariable("pagina")@RequestParam int pagina) {
- 		PageRequest pageRequest  = PageRequest.of(pagina, 5);
- 		return mascotaService.getAllMascotaPaged(pageRequest);
+    // para obtener perros de forma paginada a 5
+ 	@GetMapping("/pagina")
+ 	public ResponseEntity<Page<Mascota>> getMascotaPaginada(@RequestParam(defaultValue = "0") int page) {
+ 		Page<Mascota> mascota = mascotaService.getMascotaPaginada(page, 5);
+ 		return ResponseEntity.ok(mascota);
  	} 
  	
 	//obtener id para su busqueda 
@@ -77,11 +75,17 @@ public class MascotaControllerApi {
 	//registrar nueva mascota
 	@PostMapping("/registrar_mascota")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Mascota saveMascota(@ModelAttribute("mascota") @Valid Mascota mascota) {
+	public Mascota saveMascota(@RequestBody @Valid Mascota mascota) {
 	    Mascota guardarMascota = mascotaService.saveMascota(mascota);
 	    return guardarMascota;
 	     
 	}
+	/*
+	 @PostMapping("/registrar_mascota")
+		public ResponseEntity<Mascota> createPerro(@RequestBody Mascota mascota) {
+			Mascota savedMascota = mascotaService.saveMascota(mascota);
+			return ResponseEntity.status(HttpStatus.CREATED).body(savedMascota);
+		}*/
 
 	 // Eliminar mascota
     @DeleteMapping("/borrar/{id}")
@@ -92,30 +96,6 @@ public class MascotaControllerApi {
     
  
     
-    //MIRAR ESTO QUE ME ESTA DANDO ERROR PARA EDITARLA
-    //Para editar una mascota ya guardada
-    /*
-	@GetMapping("/mascota/editar/{id}")
-	public String updateMascotaForm(@PathVariable Long id, Model modelo) {
-		modelo.addAttribute("mascota_update", mascotaService.saveMascota(id));
-		return "editar_mascota";
-	}
-	
-	@PostMapping("/mascota/{id}")
-	public String updateMascota(@PathVariable Long id, @ModelAttribute("mascota_update") Mascota mascota) {
-		Mascota mascotaExistente = mascotaService.saveMascota(id);
-		mascotaExistente.setId(id);
-		mascotaExistente.setName(mascota.getName());
-		mascotaExistente.setFechaNac(mascota.getFechaNac());
-		mascotaExistente.setRaza(mascota.getRaza());
-		mascotaExistente.setPeso(mascota.getPeso());
-		mascotaExistente.setTiene_chip(mascota.isTiene_chip());
-		mascotaExistente.setUrl_foto(mascota.getUrl_foto());
-	
-		mascotaService.updateMascota(mascotaExistente);
-		return "redirect:/lista_mascotas";
-	} 
-	*/
 }
 
 

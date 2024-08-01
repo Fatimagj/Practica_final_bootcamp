@@ -1,6 +1,6 @@
 
 INSERT INTO mascota (name,fecha_nac,raza,peso,tiene_chip,url_foto )
-                VALUES ('Pepi','2000-05-15','Mastín',15.0,true,'/imagenes/mastin.jpg');
+                VALUES ('Pepi','2000-05-15','Mastín',15.0,true,'/imagenes/mastin.jpeg');
 INSERT INTO mascota (name,fecha_nac,raza,peso,tiene_chip,url_foto )
                 VALUES ('Dacota','2005-05-07','Labrador',18.0,true,'/imagenes/labrador.jpg');
 INSERT INTO mascota (name,fecha_nac,raza,peso,tiene_chip,url_foto )
@@ -44,6 +44,7 @@ INSERT INTO mascota (name,fecha_nac,raza,peso,tiene_chip,url_foto )
 INSERT INTO mascota (name,fecha_nac,raza,peso,tiene_chip,url_foto )
                 VALUES ('Nemo','2021-11-27','Husky Siberiano',12.0,true,'/imagenes/nemo.jpg');
 INSERT INTO mascota (name,fecha_nac,raza,peso,tiene_chip,url_foto )
-                VALUES ('Chispa','2001-12-21','Golden retriever',18.0,true,'/imagenes/chispa.jpg');               
+                VALUES ('Chispa','2001-12-21','Golden retriever',18.0,true,'/imagenes/chispa.jpg');
+               
              
           
